@@ -16,6 +16,7 @@ class Login extends React.Component {
   componentClicked = () => { }
 
   responseFacebook = (response) => {
+    console.log(response);
     this.setState({
       isLoggedIn: true,
       name: response.name,
