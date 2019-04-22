@@ -1,18 +1,23 @@
-import { ADD_USER_DATA } from '../constants/user/reducerTypes';
+import { SET_USER_DATA } from '../constants/user/reducerTypes';
 
 const initState = {
   isLoggedIn: false,
   name: '',
   userID: '',
-  email: '',
-  picture: ''
+  picture: '',
+  accessToken: ''
 }
 
 export default function (state=initState, action) {
   switch (action.type) {
-    case ADD_USER_DATA:
-      console.log(action.data);
-      return state;
+    case SET_USER_DATA:
+      return {
+        isLoggedIn: true,
+        name: action.data.name,
+        userID: action.data.userID,
+        picture: action.data.picture.data.url,
+        accessToken: action.data.accessToken
+      };
     default:
       return state;
   }

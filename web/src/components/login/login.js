@@ -1,41 +1,28 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
 import './login.css';
 
 class Login extends React.Component {
 
-  state = {
-    isLoggedIn: false,
-    name: '',
-    userID: '',
-    email: '',
-    picture: ''
-  }
-
   componentClicked = () => { }
 
   responseFacebook = (response) => {
-    console.log(response);
-    this.setState({
-      isLoggedIn: true,
-      name: response.name,
-      userID: response.userID,
-      email: response.email,
-      picture: response.picture.data.url
-    });
+    this.props.setUserData(response);
   }
 
   render() {
     return(
       <div>
-        {this.state.isLoggedIn &&
+        {this.props.user.isLoggedIn &&
           <div>
-            <img className='profile-picture' src={this.state.picture} alt={this.state.name} />
-            <h2>{this.state.name}</h2>
+            <img className='profile-picture' src={this.props.user.picture} alt={this.props.user.name} />
+            <h2>{this.props.user.name}</h2>
           </div>
         }
-        {!this.state.isLoggedIn &&
+        {!this.props.user.isLoggedIn &&
           <div>
             <FacebookLogin
               appId='581782575640136'
@@ -53,4 +40,10 @@ class Login extends React.Component {
 
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps, actions)(Login);

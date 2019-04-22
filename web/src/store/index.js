@@ -10,7 +10,7 @@ import epics from '../epics';
 
 const persistedState = loadState();
 const epicMiddleware = createEpicMiddleware();
-const store = createStore(reducers, applyMiddleware(reduxThunk, epicMiddleware, routerMiddleware(history)));
+const store = createStore(reducers(history), applyMiddleware(reduxThunk, epicMiddleware, routerMiddleware(history)));
 
 epicMiddleware.run(epics);
 

@@ -1,18 +1,14 @@
 import React from 'react';
+import Routes from './routes';
+import { ConnectedRouter } from 'connected-react-router';
 import './App.css';
 
-import Login from './components/login';
-
-class App extends React.Component {
+export default class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <Login />
-        </header>
-      </div>
+      <ConnectedRouter className="App" history={this.props.history}>
+        <Routes />
+      </ConnectedRouter>
     );
   }
 }
-
-export default App;
