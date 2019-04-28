@@ -1,13 +1,11 @@
 import React from 'react';
-import FacebookLogin from 'react-facebook-login';
-import { connect } from 'react-redux';
-import * as actions from '../../actions';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebookF } from "@fortawesome/free-brands-svg-icons";
 
 import './login.css';
 
 class Login extends React.Component {
-
-  componentClicked = () => { }
 
   responseFacebook = (response) => {
     this.props.setUserData(response);
@@ -29,7 +27,11 @@ class Login extends React.Component {
               autoLoad={true}
               fields='name,email,picture,friends'
               scope='user_friends'
-              onClick={this.componentClicked}
+              render={renderProps => (
+                <button className='btn-fb' onClick={renderProps.onClick}>
+                  <FontAwesomeIcon icon={faFacebookF} />
+                </button>
+              )}
               callback={this.responseFacebook}
             />
           </div>
@@ -40,10 +42,4 @@ class Login extends React.Component {
 
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user
-  }
-}
-
-export default connect(mapStateToProps, actions)(Login);
+export default Login;

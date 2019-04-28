@@ -11,13 +11,20 @@ const initState = {
 export default function (state=initState, action) {
   switch (action.type) {
     case SET_USER_DATA:
-      return {
-        isLoggedIn: true,
-        name: action.data.name,
-        userID: action.data.userID,
-        picture: action.data.picture.data.url,
-        accessToken: action.data.accessToken
-      };
+      if (action.data.status === "unknown")
+      {
+        return state;
+      }
+      else
+      {
+        return {
+          isLoggedIn: true,
+          name: action.data.name,
+          userID: action.data.userID,
+          picture: action.data.picture.data.url,
+          accessToken: action.data.accessToken
+        };
+      }
     default:
       return state;
   }
